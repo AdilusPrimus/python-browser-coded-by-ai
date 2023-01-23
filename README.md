@@ -8,28 +8,34 @@ The goal of this experience was to make the **ChatGPT** code for me an applicati
 I was only contributing the requirements of the web browser and reporting back the behavior of the proposed code, once it was subjected to the Python3 runtime during execution.
 So reporting in a natural language the exceptions, and negotiating (*sometimes*) the proposal of solutions.
 I chose on purpose a language and frameworks that I never experienced in the past, thus leaving the full space for the AI to debug its own proposed code, hoping to contribute in its evolution.
+Even if I have a background in software engineering, I'll try to interact with the AI as a newbie, in order to see if a non software engineer could achieve delivering a custom solution that implements his or her business requirements.
+
+> If so, we'll need to update our Linked profiles...
 
 I welcome you to join  me in this experience since it is something that I never imagined being able to do one day!
 
 ## Building a web browser
 
-So I have decided to build a full fledged web browser that needs to end up portable on MacOS, Linux and even Windows.
-I have started coding on my Mac but will contribute to the project from my Linux workstation as well.
+So I have decided to build a full fledged web browser, that needs to end up portable on MacOS, Linux and even Windows.
+We'll specialize as we go this browser to become yet another interface for OpenAI APis (ChatGPT).
+I have started coding on my Mac but I contribute as well source code and configurations from my other setup, that is my Linux workstation (Ubuntu).
 
-> It is amazing how we human beings do adapt to what is in front of us: was it me who became more precise (thus concise) or was it the AI who started to understand the intention here.
+> It is amazing how we human beings do adapt to what is in front of us: was it me who became more precise (thus concise) or was it the AI who started to understand the intention here? Time will tell...
 
 This project will evolve in time by adding more and more features until this tiny browser resembles the ones we are used to.
+Please feel free to contribute ideas in the issues section of the repo.
 
 ### Interacting with Chat GPT
 
 In this section, I give you some samples of my conversation with the AI.
+This will give you more ideas on how natural a conversation can go, and how this technology behaves in different scenarios.
+The odd thing is that it helps me debug its own code!
+So if it know how to do so, it is a lack of precision from our end (when contributing requirements) or a lack of understanding (or the loss of the current context) from the AI, when it interprets our says.
 
-> I wil only transcript the parts that I found either interesting, weird or that amazed me with some personal thoughts of course.
+#### The chat
 
-#### The beginning
-
-**Me:** 
-*Build web browser using python and qtpy5 and show me how t install all dependencies using pip command (python3)*
+**Me:**
+*Build web browser using **python** and **qtpy5** and show me how t install all dependencies using pip command (python3)*
 
 ***ChatGTP:***
 
@@ -39,9 +45,9 @@ The QtPy5 library is a Python binding for the Qt5 library, which provides compre
 pip install qtpy5==5.15.2 PyQtWebEngine==5.15.2
 ```
 
-**Me:** 
+**Me:**
 
-*Give me all required dependencies*
+Give me all required dependencies
 
 **ChatGPT:**
 
@@ -56,11 +62,11 @@ The following is a list of all the dependencies you will need to build a web bro
 
 **Me:**
 
-*Now generate the browser code*
+Now generate the browser code
 
 **ChatGPT:**
 
-``` bash 
+``` bash
 The following code can be used to generate a basic web browser using QtPy5 and Python3:
 ```
 
@@ -85,7 +91,7 @@ web_view.show()
 sys.exit(app.exec_())
 ```
 
-**Me:** 
+**Me:**
 
 ``` bash
 I get the following exception:
@@ -96,7 +102,7 @@ TypeError: setUrl(self, url: QUrl): argument 1 has unexpected type 'str'
 ***ChatGTP:***
 
 ``` bash
-This is because the setUrl method requires a QUrl object as the argument, rather than a string. 
+This is because the setUrl method requires a QUrl object as the argument, rather than a string.
 To fix this, you need to import the QUrl class from the PyQt5.QtCore module and then create a QUrl object from the string before passing it to the setUrl method. For example:
 ```
 
@@ -109,7 +115,7 @@ web_view.setUrl(QUrl("https://www.example.com"))
 
 **Me:**
 
-*I'd like the window to be initially twice the size of the browser window*
+I'd like the window to be initially twice the size of the browser window
 
 **ChatGPT:**
 
@@ -128,7 +134,7 @@ And this exchange went like this until I was able to stabilize the browser appli
 
 ## Pre-requisites
 
-### Mac:
+### Mac
 
 > Installing python3, pip3, qt5 framework and the packager for distrution pyinstaller
 
@@ -173,7 +179,7 @@ chmod u+x .venv/bin/activate
 ``` bash
 python3 -m pip install --upgrade pip
 python3 -m pip install PyQtWebEngine
-python3 -m pip install sip 
+python3 -m pip install sip
 python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose
 python3 -m pip install pyinstaller
 python3 -m pip freeze > requirements.txt
