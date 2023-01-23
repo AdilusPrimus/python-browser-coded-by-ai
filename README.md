@@ -2,7 +2,22 @@
 
 ## Building a web browser
 
+The goal of this experience was to make the **ChatGPT** code for me an application.
+I was only contributing the requirements of the web browser and reporting back the behavior of the proposed code, once it was subjected to the Python3 runtime during execution.
+So reporting in a natural language the exceptions, and negotiating (*sometimes*) the proposal of solutions.
+I chose on purpose a language and frameworks that I never experienced in the past, thus leaving the full space for the AI to debug its own proposed code, hoping to contribute in its evolution.
+
+> It is amazing how we human beings do adapt to what is in front of us: was it me who became more precise (thus concise) or was it the AI who started to understand the intention here.
+
+This project will evolve in time by adding more and more features until this tiny browser resembles the ones we are used to.
+
 ### Interacting with Chat GPT
+
+In this section, I give you some samples of my conversation with the AI.
+
+> I wil only transcript the parts that I found either interesting, weird or that amazed me with some personal thoughts of course.
+
+#### The beginning
 
 **Me:** 
 *Build web browser using python and qtpy5 and show me how t install all dependencies using pip command (python3)*
@@ -82,12 +97,24 @@ from PyQt5.QtCore import QUrl
 web_view.setUrl(QUrl("https://www.example.com"))
 ```
 
-I'd like the window to be initially twice the size of the browser window
+**Me:**
 
+*I'd like the window to be initially twice the size of the browser window*
+
+**ChatGPT:**
+
+```bash
 To set the initial window size to twice the size of the browser window, you can use the setGeometry method of the QWebEngineView object. For example:
 
 # Set the window size to twice the size of the browser window
 web_view.setGeometry(0, 0, 2*web_view.width(), 2*web_view.height())
+```
+
+...
+
+And this exchange went like this until I was able to stabilize the browser application.
+
+> Each time I had a configuration or exception in the code, I submitted it to the AI: nothing was fixed or contributed by myself, I was only the main in the middle here
 
 ## Pre-requisites
 
