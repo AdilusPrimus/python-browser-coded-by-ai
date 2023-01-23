@@ -24,7 +24,7 @@ I have started coding on my Mac but I contribute as well source code and configu
 > Time will tell...
 
 This project will evolve in time by adding more and more features until this tiny browser resembles the ones we are used to.
-we'll br exploring with the AI how to buils an interface for ChatGPT, as the AI proposes to be interfaced.
+We'll be exploring with the AI how to build a web browser that interfaces the ChatGPT (as inspired by other open source projects), following the AI's integration guidelines.
 
 **Please feel free to contribute ideas in the issues section of the repo**.
 
