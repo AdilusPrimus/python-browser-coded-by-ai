@@ -1,11 +1,22 @@
-# Exploring Python with the help of ChatGPT
+# Discovering Python GUI programming with the help of ChatGPT AI
 
-## Building a web browser
+![You thought that this was strictly science fiction? Think again!](Skynet.jpeg)
+
+## Goal
 
 The goal of this experience was to make the **ChatGPT** code for me an application.
 I was only contributing the requirements of the web browser and reporting back the behavior of the proposed code, once it was subjected to the Python3 runtime during execution.
 So reporting in a natural language the exceptions, and negotiating (*sometimes*) the proposal of solutions.
 I chose on purpose a language and frameworks that I never experienced in the past, thus leaving the full space for the AI to debug its own proposed code, hoping to contribute in its evolution.
+
+I welcome you to join  me in this experience since it is something that I never imagined being able to do one day!
+
+
+
+## Building a web browser
+
+So I have decided to build a full fledged web browser that needs to end up portable on MacOS, Linux and even Windows.
+I have started coding on my Mac but will contribute to the project from my Linux workstation as well.
 
 > It is amazing how we human beings do adapt to what is in front of us: was it me who became more precise (thus concise) or was it the AI who started to understand the intention here.
 
@@ -87,7 +98,8 @@ TypeError: setUrl(self, url: QUrl): argument 1 has unexpected type 'str'
 ***ChatGTP:***
 
 ``` bash
-This is because the setUrl method requires a QUrl object as the argument, rather than a string. To fix this, you need to import the QUrl class from the PyQt5.QtCore module and then create a QUrl object from the string before passing it to the setUrl method. For example:
+This is because the setUrl method requires a QUrl object as the argument, rather than a string. 
+To fix this, you need to import the QUrl class from the PyQt5.QtCore module and then create a QUrl object from the string before passing it to the setUrl method. For example:
 ```
 
 ``` python
@@ -127,14 +139,24 @@ brew install python3 pip3 qt5 pyinstaller
 echo 'export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"' >> ~/.zshrc
 ```
 
+### Linux
+
+Coming soon
+
+### Windows
+
+Coming soon
+
 ### vscode configuration
 
 Install proposed extensions: .vscode/extensions.json
 > vscode will prompt an option automatically when loading workspace
 
-### Workspace
+### Workspace setup
 
-> Generating our sandbox (workspace isolation)
+Generating our sandbox (workspace isolation)
+
+From the Terminal of vscode pointing to the project root, type the following commands:
 
 ``` bash
 python3 -m venv .venv
