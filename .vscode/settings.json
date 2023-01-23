@@ -1,0 +1,5 @@
+{
+    "qtForPython.designer.path": "/opt/homebrew/opt/qt@5/bin",
+    "qtForPython.qmllint.path": "/opt/homebrew/opt/qt@5/bin",
+    "qtForPython.rcc.path": "/opt/homebrew/opt/qt@5/bin"
+}

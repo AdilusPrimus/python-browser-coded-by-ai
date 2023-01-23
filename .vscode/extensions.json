@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "twxs.cmake",
+        "ms-vscode.cmake-tools",
+        "ms-python.python",
+        "donjayamanne.python-extension-pack",
+        "donjayamanne.python-environment-manager",
+        "mgesbert.python-path",
+        "seanwu.vscode-qt-for-python",
+        "ms-python.isort",
+        "visualstudioexptteam.vscodeintellicode",
+        "gencay.vscode-chatgpt"
+    ]
+}
