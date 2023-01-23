@@ -1,16 +1,18 @@
-import sys
-import PyQt5
+import sys, os
 
+from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QUrl, Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLineEdit
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
+basedir = os.path.dirname(__file__)
 class Browser(QWebEngineView):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Safarire')
         self.setGeometry(0, 0, 1024, 600)
         self.setWindowFlags(Qt.Window | Qt.WindowStaysOnTopHint | Qt.WindowCloseButtonHint | Qt.WindowFullscreenButtonHint)
+        self.setWindowIcon(QIcon(os.path.join(basedir, './img/appstorm.svg')))
 
 def main():
     app = QApplication(sys.argv)
@@ -18,7 +20,7 @@ def main():
     try:
         browser.load(QUrl('https://heeeeeeeey.com'))
     except Exception as e:
-        print("Error occured while loading the web page: ", e)
+        print("Error occurred while loading the web page: ", e)
         return
 
     # Create buttons
