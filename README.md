@@ -7,10 +7,10 @@
 The goal of this experience was to make the **ChatGPT** code for me an application.
 I was only contributing the requirements of the web browser and reporting back the behavior of the proposed code, once it was subjected to the Python3 runtime during execution.
 So reporting in a natural language the exceptions, and negotiating (*sometimes*) the proposal of solutions.
-I chose on purpose a language and frameworks that I never experienced in the past, thus leaving the full space for the AI to debug its own proposed code, hoping to contribute in its evolution.
+I chose on purpose a language and frameworks that I never experienced in the past (**Python** and **QT5**), thus leaving the full space for the AI to debug its own proposed code, hoping to contribute in its evolution.
 Even if I have a background in software engineering, I'll try to interact with the AI as a newbie, in order to see if a non software engineer could achieve delivering a custom solution that implements his or her business requirements.
 
-> If so, we'll need to update our Linked profiles...
+> If so, we'll need to update our Linkedin profiles...
 
 I welcome you to join  me in this experience since it is something that I never imagined being able to do one day!
 
@@ -20,22 +20,25 @@ So I have decided to build a full fledged web browser, that needs to end up port
 We'll specialize as we go this browser to become yet another interface for OpenAI APis (ChatGPT).
 I have started coding on my Mac but I contribute as well source code and configurations from my other setup, that is my Linux workstation (Ubuntu).
 
-> It is amazing how we human beings do adapt to what is in front of us: was it me who became more precise (thus concise) or was it the AI who started to understand the intention here? Time will tell...
+> It is amazing how we human beings do adapt to what is in front of us: was it me who became more precise (thus concise), or was it the AI who started to understand the intention here? 
+> Time will tell...
 
 This project will evolve in time by adding more and more features until this tiny browser resembles the ones we are used to.
-Please feel free to contribute ideas in the issues section of the repo.
+we'll br exploring with the AI how to buils an interface for ChatGPT, as the AI proposes to be interfaced.
+
+**Please feel free to contribute ideas in the issues section of the repo**.
 
 ### Interacting with Chat GPT
 
 In this section, I give you some samples of my conversation with the AI.
 This will give you more ideas on how natural a conversation can go, and how this technology behaves in different scenarios.
 The odd thing is that it helps me debug its own code!
-So if it know how to do so, it is a lack of precision from our end (when contributing requirements) or a lack of understanding (or the loss of the current context) from the AI, when it interprets our says.
+So if it knows how to do so, it is a lack of precision from our end (when contributing requirements) or a lack of understanding (or the loss of the current context) from the AI, when it interprets our says.
 
 #### The chat
 
 **Me:**
-*Build web browser using **python** and **qtpy5** and show me how t install all dependencies using pip command (python3)*
+*Build web browser using **python** and **qtpy5** and show me how to install all dependencies using pip command (python3)*
 
 ***ChatGTP:***
 
