@@ -133,7 +133,9 @@ web_view.setGeometry(0, 0, 2*web_view.width(), 2*web_view.height())
 
 And this exchange went like this until I was able to stabilize the browser application.
 
-> Each time I had a configuration or exception in the code, I submitted it to the AI: nothing was fixed or contributed by myself, I was only the main in the middle here
+> Each time I had a configuration or exception in the code, I submitted it to the AI: 
+> Almost no code was designed or patched based on my thoughts, the AI thought it all.
+I played only the role of the analyst and technical secretary, when contirbuting the proposed changes.
 
 ## Pre-requisites
 
