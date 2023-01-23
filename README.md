@@ -11,8 +11,6 @@ I chose on purpose a language and frameworks that I never experienced in the pas
 
 I welcome you to join  me in this experience since it is something that I never imagined being able to do one day!
 
-
-
 ## Building a web browser
 
 So I have decided to build a full fledged web browser that needs to end up portable on MacOS, Linux and even Windows.
@@ -141,13 +139,17 @@ echo 'export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"' >> ~/.zshrc
 
 ### Linux
 
-Coming soon
+```bash
+sudo apt install -y qtcreator qtbase5-dev qt5-qmake cmake python3.10-venv pyqt5-dev-tools qttools5-dev-tools
+```
 
 ### Windows
 
 Coming soon
 
 ### vscode configuration
+
+Select Python 3.10.x interpreter (CTRL+SHIT+P Python: Select Interpreter)
 
 Install proposed extensions: .vscode/extensions.json
 > vscode will prompt an option automatically when loading workspace
@@ -160,6 +162,7 @@ From the Terminal of vscode pointing to the project root, type the following com
 
 ``` bash
 python3 -m venv .venv
+chmod u+x .venv/bin/activate
 .venv/bin/activate
 ```
 
@@ -169,10 +172,12 @@ python3 -m venv .venv
 
 ``` bash
 python3 -m pip install --upgrade pip
-python3 -m pip install sip PyQtWebEngine PyQt5 --config-settings --confirm-license= --verbose
+python3 -m pip instal PyQtWebEngine
+python3 -m pip install sip 
+python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose
 ```
 
-> Wait for a while for completition
+> Wait for a while for completion
 
 ``` bash
 ...

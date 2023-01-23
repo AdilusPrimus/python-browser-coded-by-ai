@@ -22,15 +22,15 @@ def main():
         return
 
     # Create buttons
-    backButton = QPushButton('Back')
-    forwardButton = QPushButton('Forward')
-    refreshButton = QPushButton('Refresh')
-    goButton = QPushButton('Go')
+    back_button = QPushButton('Back')
+    forward_button = QPushButton('Forward')
+    refresh_button = QPushButton('Refresh')
+    go_button = QPushButton('Go')
     
     # Connect buttons to functions
-    backButton.clicked.connect(browser.back)
-    forwardButton.clicked.connect(browser.forward)
-    refreshButton.clicked.connect(browser.reload)
+    back_button.clicked.connect(browser.back)
+    forward_button.clicked.connect(browser.forward)
+    refresh_button.clicked.connect(browser.reload)
 
     # Create a container widget to hold the layout and the buttons
     container = QWidget()
@@ -42,11 +42,11 @@ def main():
     # Add buttons to layout
     layout = QVBoxLayout()
     layout_inner = QHBoxLayout()
-    layout_inner.addWidget(backButton)
-    layout_inner.addWidget(forwardButton)
-    layout_inner.addWidget(refreshButton)
+    layout_inner.addWidget(back_button)
+    layout_inner.addWidget(forward_button)
+    layout_inner.addWidget(refresh_button)
     layout_inner.addWidget(url_line_edit)
-    layout_inner.addWidget(goButton)    
+    layout_inner.addWidget(go_button)    
     layout.addLayout(layout_inner)
     layout.addWidget(browser)
 
@@ -55,7 +55,7 @@ def main():
 
     # Show the container widget
     container.show()
-    goButton.clicked.connect(lambda: browser.load(QUrl(url_line_edit.text())))
+    go_button.clicked.connect(lambda: browser.load(QUrl(url_line_edit.text())))
     app.exec_()
     browser.deleteLater()
 
