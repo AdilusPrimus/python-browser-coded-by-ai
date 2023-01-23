@@ -175,6 +175,7 @@ python3 -m pip install --upgrade pip
 python3 -m pip instal PyQtWebEngine
 python3 -m pip install sip 
 python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose
+python3 -m pip install pyinstaller
 ```
 
 > Wait for a while for completion
