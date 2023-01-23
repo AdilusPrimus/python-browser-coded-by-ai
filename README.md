@@ -1,6 +1,6 @@
 # Discovering Python GUI programming with the help of ChatGPT AI
 
-![You thought that this was strictly science fiction? Think again!](Skynet.jpeg)
+![You thought that this was strictly science fiction? Think again!](img/Skynet.jpeg)
 
 ## Goal
 
