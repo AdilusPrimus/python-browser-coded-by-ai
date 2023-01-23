@@ -196,7 +196,7 @@ Successfully installed PyQt5-sip-12.11.0 pyqt5-5.15.7
 ### Packaging the application (generating binary)
 
 ``` bash
-$ pyinstaller --onefile --paths "/opt/homebrew/opt/qt@5" browser.py
+$ pyinstaller --log-level=DEBUG --clean browser.spec
 
 75 INFO: PyInstaller: 5.7.0
 75 INFO: Python: 3.10.9
