@@ -32,21 +32,21 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'pipenv'
+        cache: 'pip'
 
     - name: Display Python version
       run: python --version
 
-    - name: Install pipenv
-      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-    - run: pipenv install
+    # - name: Install pipenv
+    #   run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
+    # - run: pipenv install
 
     - name: Setup cache
-      id: cache-pyvenv
+      id: cache-pypip
       uses: actions/cache@v3
       with:
-        path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('pyvenv.cfg') }}
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pip-${{ hashFiles('dev-requirements.txt') }}
 
     - name: Configure Ubuntu build container
       shell: bash
@@ -55,13 +55,13 @@ jobs:
         sudo apt-get update
         sudo apt-get install qtcreator qtbase5-dev qt5-qmake pyqt5-dev-tools qttools5-dev-tools
 
-    - name: Define Python virtual environment
-      shell: bash
-      run: |
-        echo "Define Python virtual environment"
-        python3 -m venv .venv
-        chmod u+x .venv/bin/activate
-        .venv/bin/activate
+    # - name: Define Python virtual environment
+    #   shell: bash
+    #   run: |
+    #     echo "Define Python virtual environment"
+    #     python3 -m venv .venv
+    #     chmod u+x .venv/bin/activate
+    #     .venv/bin/activate
 
     - name: Manage Python dependencies
       shell: bash
@@ -72,14 +72,16 @@ jobs:
         python3 -m pip install sip
         python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose
         python3 -m pip install pyinstaller
+        python3 -m pip freeze > requirements.txt
 
     - name: Save cache
       if: steps.cache-pyvenv.outputs.cache-hit != 'true'
-      id: cache-pyvenv-save
+      id: cache-pypip-save
       uses: actions/cache/save@v3
       with:
-        path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('pyvenv.cfg') }}
+        # path: ~/.local/share/virtualenvs
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pip-${{ hashFiles('dev-requirements.txt') }}
 
   build:
     name: Build the Browser Application
@@ -97,11 +99,12 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Restore cached
-      id: cache-pyvenv-restore
+      id: cache-pypip-restore
       uses: actions/cache/restore@v3
       with:
-        path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('pyvenv.cfg') }}
+        # path: ~/.local/share/virtualenvs
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pip-${{ hashFiles('dev-requirements.txt') }}
 
     - name: Build application
       shell: bash
@@ -110,8 +113,9 @@ jobs:
         pyinstaller --log-level=DEBUG --clean browser.spec
 
     - name: Save cache
-      id: cache-pyvenv-save
+      id: cache-pypip-save
       uses: actions/cache/save@v3
       with:
-        path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('pyvenv.cfg') }}
+        # path: ~/.local/share/virtualenvs
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pip-${{ hashFiles('dev-requirements.txt') }}
