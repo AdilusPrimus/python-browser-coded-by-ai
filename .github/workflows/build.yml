@@ -44,24 +44,24 @@ jobs:
     strategy:
       fail-fast: true
 
-      steps:
-      - name: Define Python virtual environment
-        shell: bash
-        run: |
-          echo "Define Python virtual environment"
-          python3 -m venv .venv
-          chmod u+x .venv/bin/activate
-          .venv/bin/activate
+    steps:
+    - name: Define Python virtual environment
+      shell: bash
+      run: |
+        echo "Define Python virtual environment"
+        python3 -m venv .venv
+        chmod u+x .venv/bin/activate
+        .venv/bin/activate
 
-      - name: Manage Python dependencies
-        shell: bash
-        run: |
-          echo "Download required Python dependencies (pip)"
-          python3 -m pip install --upgrade pip
-          python3 -m pip install PyQtWebEngine
-          python3 -m pip install sip
-          python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose
-          python3 -m pip install pyinstaller
+    - name: Manage Python dependencies
+      shell: bash
+      run: |
+        echo "Download required Python dependencies (pip)"
+        python3 -m pip install --upgrade pip
+        python3 -m pip install PyQtWebEngine
+        python3 -m pip install sip
+        python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose
+        python3 -m pip install pyinstaller
 
   build:
     name: Build the Browser Application
