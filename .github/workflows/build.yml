@@ -19,32 +19,42 @@ jobs:
       contents: read
 
     strategy:
+    matrix:
+      os: [ubuntu-latest, macos-latest, windows-latest]
+      python-version: ['3.9', '3.10']
       fail-fast: true
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pipenv'
+
+    - name: Display Python version
+      run: python --version
+
+    - name: Install pipenv
+      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
+    - run: pipenv install
+
+    - name: Setup cache
+      id: cache-pyvenv
+      uses: actions/cache@v3
+      with:
+        path: ~/.local/share/virtualenvs
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock')
+
     - name: Configure Ubuntu build container
       shell: bash
       run: |
-        echo "Configuring build container by downloading required packages (apt)"
-        sudo apt update
-        sudo apt install -y python3 python3-pip python3.10-venv
-        sudo apt install qtcreator qtbase5-dev qt5-qmake pyqt5-dev-tools qttools5-dev-tools
+        echo "Configuring build container by downloading the required QT5 packages (apt)"
+        sudo apt-get update
+        sudo apt-get install qtcreator qtbase5-dev qt5-qmake pyqt5-dev-tools qttools5-dev-tools
 
-  python-venv:
-    name: Initialize the Python virtual environment & Dependencies
-    needs: environment
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-
-    strategy:
-      fail-fast: true
-
-    steps:
     - name: Define Python virtual environment
       shell: bash
       run: |
@@ -63,6 +73,14 @@ jobs:
         python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose
         python3 -m pip install pyinstaller
 
+    - name: Save cache
+      if: steps.cache-pyvenv.outputs.cache-hit != 'true'
+      id: cache-pyvenv-save
+      uses: actions/cache/save@v3
+      with:
+        path: ~/.local/share/virtualenvs
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock')
+
   build:
     name: Build the Browser Application
     needs: python-venv
@@ -75,8 +93,25 @@ jobs:
       fail-fast: true
 
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Restore cached
+      id: cache-pyvenv-restore
+      uses: actions/cache/restore@v3
+      with:
+        path: ~/.local/share/virtualenvs
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock')
+
     - name: Build application
       shell: bash
       run: |
         echo "Package the application with pyinstaller"
         pyinstaller --log-level=DEBUG --clean browser.spec
+
+    - name: Save cache
+      id: cache-pyvenv-save
+      uses: actions/cache/save@v3
+      with:
+        path: ~/.local/share/virtualenvs
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock')
