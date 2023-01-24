@@ -28,7 +28,7 @@ jobs:
     - name: Configure Ubuntu build container
       shell: bash
       run: |
-        "echo \"Configuring build container by downloading required packages (apt)\"
+        echo "Configuring build container by downloading required packages (apt)"
         sudo apt update
         sudo apt install -y python3 python3-pip python3.10-venv
         sudo apt install qtcreator qtbase5-dev qt5-qmake pyqt5-dev-tools qttools5-dev-tools
