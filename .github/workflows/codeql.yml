@@ -13,12 +13,12 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "main" ]
+    branches: ["main"]
   schedule:
-    - cron: '43 6 * * 5'
+  - cron: '43 6 * * 5'
 
 jobs:
   analyze:
@@ -30,9 +30,9 @@ jobs:
       security-events: write
 
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
-        language: [ 'python' ]
+        language: ['python']
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Use only 'java' to analyze code written in Java, Kotlin or both
         # Use only 'javascript' to analyze code written in JavaScript, TypeScript or both
@@ -60,15 +60,34 @@ jobs:
     - name: Autobuild
       uses: github/codeql-action/autobuild@v2
 
-    # ℹ️ Command-line programs to run using the OS shell.
-    # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
+    - name: ConfigureUbuntuBuildContainer
+      shell: bash
+      run: "sudo apt update\n# Installing Python components\nsudo apt install -y python3 python3-pip python3.10-venv \n# Installing QT5 components\nsudo apt install qtcreator qtbase5-dev qt5-qmake pyqt5-dev-tools qttools5-dev-tools\n#magic___^_^___line\n"
+    - name: DefinePythonVirtualEnvironment
+      shell: bash
+      needs: ConfigureUbuntuBuildContainer
+      run: |
+        echo "Define Python virtual environment""
+        python3 -m venv .venv
+        chmod u+x .venv/bin/activate
+        .venv/bin/activate
 
-    #   If the Autobuild fails above, remove it and uncomment the following three lines.
-    #   modify them (or add more) to build your code if your project, please refer to the EXAMPLE below for guidance.
+    - name: ManagePythonDependencies
+      needs: DefinePythonVirtualEnvironment
+      shell: bash
+      run: |
+        echo "Download required Python dependencies (pip)"
+        python3 -m pip install --upgrade pip
+        python3 -m pip install PyQtWebEngine
+        python3 -m pip install sip
+        python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose
+        python3 -m pip install pyinstaller
 
-    # - run: |
-    #   echo "Run, Build Application using script"
-    #   ./location_of_script_within_repo/buildscript.sh
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+      needs: ManagePythonDependencies
+      run: echo "Package the application with pyinstaller" pyinstaller --log-level=DEBUG --clean browser.spec
+      shell: bash
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2

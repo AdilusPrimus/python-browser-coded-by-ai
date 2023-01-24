@@ -35,7 +35,7 @@ This will give you more ideas on how natural a conversation can go, and how this
 The odd thing is that it helps me debug its own code!
 So if it knows how to do so, it is a lack of precision from our end (when contributing requirements) or a lack of understanding (or the loss of the current context) from the AI, when it interprets our says.
 
-#### The chat
+#### The chat with... an AI!?
 
 **Me:**
 *Build web browser using **python** and **qtpy5** and show me how to install all dependencies using pip command (python3)*
@@ -150,7 +150,7 @@ echo 'export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"' >> ~/.zshrc
 
 ### Linux
 
-```bash
+``` bash
 sudo apt install -y qtcreator qtbase5-dev qt5-qmake cmake python3.10-venv pyqt5-dev-tools qttools5-dev-tools
 ```
 
@@ -158,9 +158,22 @@ sudo apt install -y qtcreator qtbase5-dev qt5-qmake cmake python3.10-venv pyqt5-
 
 Coming soon
 
+### Github configuration
+
+The Github Action scripts where defined accordingly by leveraging the AI guiding and the Github ready to use templates:
+
+    - Software Composition Analysis (SCA) by dependabot 
+      - .github/dependabot.yml
+      - .github/workflows/dependency-review.yml
+    - Static Application Security Testing (SAST) including build and packaging with CodeQL for Python:
+      - .github/workflows/codeql.yml
+    - SAST with Bandit for Python:
+      - .github/workflows/bandit.yml 
 ### vscode configuration
 
-Select Python 3.10.x interpreter (CTRL+SHIT+P Python: Select Interpreter)
+> We need to configure an Interpreter for the your the project workspace
+Please select Python 3.10.x interpreter (CTRL+SHIT+P Python: Select Interpreter)
+> The AI already told us how to configure a Debugger: see .vscode/launch.json
 
 Install proposed extensions: .vscode/extensions.json
 > vscode will prompt an option automatically when loading workspace
@@ -171,7 +184,7 @@ Generating our sandbox (workspace isolation)
 
 From the Terminal of vscode pointing to the project root, type the following commands:
 
-``` bash
+```bash
 python3 -m venv .venv
 chmod u+x .venv/bin/activate
 .venv/bin/activate
@@ -181,7 +194,7 @@ chmod u+x .venv/bin/activate
 
 > Downloading required libraries using pip
 
-``` bash
+```bash
 python3 -m pip install --upgrade pip
 python3 -m pip install PyQtWebEngine
 python3 -m pip install sip
@@ -193,14 +206,14 @@ python3 -m pip freeze > requirements.txt
 
 > Wait for a while for completion
 
-``` bash
+```bash
 ...
 Successfully installed PyQt5-sip-12.11.0 pyqt5-5.15.7
 ```
 
 ### Packaging the application (generating binary)
 
-``` bash
+```bash
 $ pyinstaller --log-level=DEBUG --clean browser.spec
 
 75 INFO: PyInstaller: 5.7.0
@@ -209,45 +222,10 @@ $ pyinstaller --log-level=DEBUG --clean browser.spec
 95 INFO: wrote /Users/bond007/Workspaces/PythonBrowser/browser.spec
 97 INFO: UPX is not available.
 97 INFO: Extending PYTHONPATH with paths
-['/Users/bond007/Workspaces/PythonBrowser',
- '/opt/homebrew/opt/qt@5']
-206 INFO: checking Analysis
-208 INFO: Building because pathex changed
-208 INFO: Initializing module dependency graph...
-210 INFO: Caching module graph hooks...
-216 INFO: Analyzing base_library.zip ...
-606 INFO: Loading module hook 'hook-encodings.py' from '/opt/homebrew/lib/python3.10/site-packages/PyInstaller/hooks'...
-818 INFO: Loading module hook 'hook-heapq.py' from '/opt/homebrew/lib/python3.10/site-packages/PyInstaller/hooks'...
-982 INFO: Loading module hook 'hook-pickle.py' from '/opt/homebrew/lib/python3.10/site-packages/PyInstaller/hooks'...
-1975 INFO: Caching module dependency graph...
-2024 INFO: running Analysis Analysis-00.toc
-2027 INFO: Analyzing /Users/bond007/Workspaces/PythonBrowser/browser.py
-2029 INFO: Processing module hooks...
-2036 INFO: Looking for ctypes DLLs
-2037 INFO: Analyzing run-time hooks ...
-2038 INFO: Including run-time hook '/opt/homebrew/lib/python3.10/site-packages/PyInstaller/hooks/rthooks/pyi_rth_inspect.py'
-2041 INFO: Looking for dynamic libraries
-2200 INFO: Looking for eggs
-2200 INFO: Using Python library /opt/homebrew/Cellar/python@3.10/3.10.9/Frameworks/Python.framework/Versions/3.10/Python
-2202 INFO: Warnings written to /Users/bond007/Workspaces/PythonBrowser/build/browser/warn-browser.txt
-2209 INFO: Graph cross-reference written to /Users/bond007/Workspaces/PythonBrowser/build/browser/xref-browser.html
-2212 INFO: checking PYZ
-2213 INFO: Building because toc changed
-2213 INFO: Building PYZ (ZlibArchive) /Users/bond007/Workspaces/PythonBrowser/build/browser/PYZ-00.pyz
-2333 INFO: Building PYZ (ZlibArchive) /Users/bond007/Workspaces/PythonBrowser/build/browser/PYZ-00.pyz completed successfully.
-2336 INFO: EXE target arch: arm64
-2336 INFO: Code signing identity: None
-2336 INFO: checking PKG
-2337 INFO: Building because toc changed
-2337 INFO: Building PKG (CArchive) browser.pkg
-3775 INFO: Building PKG (CArchive) browser.pkg completed successfully.
-3778 INFO: Bootloader /opt/homebrew/lib/python3.10/site-packages/PyInstaller/bootloader/Darwin-64bit/run
-3778 INFO: checking EXE
-3779 INFO: Building because toc changed
-3779 INFO: Building EXE from EXE-00.toc
-3779 INFO: Copying bootloader EXE to /Users/bond007/Workspaces/PythonBrowser/dist/browser
-3780 INFO: Converting EXE to target arch (arm64)
-3798 INFO: Removing signature(s) from EXE
+
+...
+
+2202 INFO: Warnings written to /Users/bond007/Workspaces/PythonBrowser/build/browser/
 3813 INFO: Appending PKG archive to EXE
 3815 INFO: Fixing EXE headers for code signing
 3818 INFO: Re-signing the EXE
