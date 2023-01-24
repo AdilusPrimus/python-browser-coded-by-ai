@@ -83,7 +83,6 @@ jobs:
         python3 -m pip install pyinstaller
 
     - name: BuildBrowser
-      needs: ManagePythonDependencies
       run: echo "Package the application with pyinstaller" pyinstaller --log-level=DEBUG --clean browser.spec
       shell: bash
 
