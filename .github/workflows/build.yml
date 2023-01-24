@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       actions: read
-      contents: read
+      contents: write
 
     strategy:
       matrix:
@@ -71,15 +71,7 @@ jobs:
     - name: Manage Python dependencies
       if: steps.cache-pypip.outputs.cache-hit != 'true'
       shell: bash
-      run: |
-        echo "Download required Python dependencies (pip)"
-        python3 -m pip install --upgrade pip
-        python3 -m pip install PyQtWebEngine
-        python3 -m pip install sip
-        python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose
-        python3 -m pip install pyinstaller
-        python3 -m pip freeze > requirements.txt
-
+      run: "echo \"Download required Python dependencies (pip)\"\npython3 -m pip install --upgrade pip\nif [ -f requirements.txt ]; then \n  pip install -r requirements.txt\nelse\n  python3 -m pip install PyQtWebEngine\n  python3 -m pip install sip\n  python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose\n  python3 -m pip install pyinstaller\n  python3 -m pip freeze > requirements.txt\nfi\n  #magic___^_^___line\n"
     - name: Save cache
       id: cache-pypip-save
       uses: actions/cache/save@v3
@@ -87,7 +79,7 @@ jobs:
         path: |
           ~/.cache/pip
           venv
-        key: ${{ steps.cache-pypip.outputs.key }}
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pip-${{ hashFiles('dev-requirements.txt') }}
 
   build:
     name: Build the Browser Application
@@ -95,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       actions: read
-      contents: read
+      contents: write
 
     strategy:
       fail-fast: true
@@ -142,4 +134,4 @@ jobs:
         path: |
           ~/.cache/pip
           venv
-        key: ${{ steps.cache-pypip-restore.outputs.key }}
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pip-${{ hashFiles('dev-requirements.txt') }}
