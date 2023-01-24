@@ -19,10 +19,10 @@ jobs:
       contents: read
 
     strategy:
-    matrix:
-      os: [ubuntu-latest, macos-latest, windows-latest]
-      python-version: ['3.9', '3.10']
-      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.9', '3.10']
+        fail-fast: true
 
     steps:
     - name: Checkout repository
