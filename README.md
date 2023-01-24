@@ -196,10 +196,8 @@ chmod u+x .venv/bin/activate
 
 ```bash
 python3 -m pip install --upgrade pip
-python3 -m pip install PyQtWebEngine
-python3 -m pip install sip
+python3 -m pip install sip PyQtWebEngine pyinstaller
 python3 -m pip install pyqt5 --config-settings --confirm-license= --verbose
-python3 -m pip install pyinstaller
 python3 -m pip freeze > requirements.txt
 ```
 
