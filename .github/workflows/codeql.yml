@@ -84,8 +84,7 @@ jobs:
         python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose
         python3 -m pip install pyinstaller
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+    - name: BuildBrowser
       needs: ManagePythonDependencies
       run: echo "Package the application with pyinstaller" pyinstaller --log-level=DEBUG --clean browser.spec
       shell: bash
