@@ -64,8 +64,7 @@ jobs:
 
     - name: Build application
       shell: bash
-      run: echo "Package the application with pyinstaller" pyinstaller --log-level=DEBUG --clean browser.spec
-
+      run: "echo \"Package the application with pyinstaller\" \npyinstaller --log-level=DEBUG --clean browser.spec\n#magic___^_^___line\n"
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
