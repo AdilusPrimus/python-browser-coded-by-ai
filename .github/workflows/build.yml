@@ -83,7 +83,7 @@ jobs:
 
   build:
     name: Build the Browser Application
-    needs: python-venv
+    needs: environment
     runs-on: ubuntu-latest
     permissions:
       actions: read
