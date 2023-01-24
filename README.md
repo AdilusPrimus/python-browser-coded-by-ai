@@ -20,7 +20,7 @@ So I have decided to build a full fledged web browser, that needs to end up port
 We'll specialize as we go this browser to become yet another interface for OpenAI APis (ChatGPT).
 I have started coding on my Mac but I contribute as well source code and configurations from my other setup, that is my Linux workstation (Ubuntu).
 
-> It is amazing how we human beings do adapt to what is in front of us: was it me who became more precise (thus concise), or was it the AI who started to understand the intention here? 
+> It is amazing how we human beings do adapt to what is in front of us: was it me who became more precise (thus concise), or was it the AI who started to understand the intention here?
 > Time will tell...
 
 This project will evolve in time by adding more and more features until this tiny browser resembles the ones we are used to.
@@ -133,7 +133,7 @@ web_view.setGeometry(0, 0, 2*web_view.width(), 2*web_view.height())
 
 And this exchange went like this until I was able to stabilize the browser application.
 
-> Each time I had a configuration or exception in the code, I submitted it to the AI: 
+> Each time I had a configuration or exception in the code, I submitted it to the AI:
 > Almost no code was designed or patched based on my thoughts, the AI thought it all.
 I played only the role of the analyst and technical secretary, when contirbuting the proposed changes.
 
@@ -144,7 +144,7 @@ I played only the role of the analyst and technical secretary, when contirbuting
 > Installing python3, pip3, qt5 framework and the packager for distrution pyinstaller
 
 ``` bash
-brew install python3 pip3 qt5 pyinstaller
+brew install python3 qt5 pyinstaller
 echo 'export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"' >> ~/.zshrc
 ```
 
@@ -156,12 +156,11 @@ sudo apt install -y qtcreator qtbase5-dev qt5-qmake cmake python3.10-venv pyqt5-
 
 ### Windows
 
-Coming soon
+> *Coming soon*
 
 ### Github configuration
 
 The Github Action scripts where defined accordingly by leveraging the AI guiding and the Github ready to use templates:
-
     - Software Composition Analysis (SCA) by dependabot 
       - .github/dependabot.yml
       - .github/workflows/dependency-review.yml
@@ -169,6 +168,7 @@ The Github Action scripts where defined accordingly by leveraging the AI guiding
       - .github/workflows/codeql.yml
     - SAST with Bandit for Python:
       - .github/workflows/bandit.yml 
+
 ### vscode configuration
 
 > We need to configure an Interpreter for the your the project workspace
@@ -198,10 +198,9 @@ chmod u+x .venv/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install PyQtWebEngine
 python3 -m pip install sip
-python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose
+python3 -m pip install pyqt5 --config-settings --confirm-license= --verbose
 python3 -m pip install pyinstaller
 python3 -m pip freeze > requirements.txt
-
 ```
 
 > Wait for a while for completion
