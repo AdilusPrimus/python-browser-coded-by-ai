@@ -101,7 +101,7 @@ jobs:
       uses: actions/cache/restore@v3
       with:
         path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock')
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
 
     - name: Build application
       shell: bash
@@ -114,4 +114,4 @@ jobs:
       uses: actions/cache/save@v3
       with:
         path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock')
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
