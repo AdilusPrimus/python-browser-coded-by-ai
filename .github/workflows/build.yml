@@ -20,8 +20,10 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ['3.9', '3.10']
+        # os: [ubuntu-latest, macos-latest, windows-latest]
+        # python-version: ['3.9', '3.10']
+        os: [ubuntu-latest]
+        python-version: ['3.10']
       fail-fast: true
 
     steps:
@@ -64,6 +66,7 @@ jobs:
     #     .venv/bin/activate
 
     - name: Manage Python dependencies
+      if: steps.cache-pypip.outputs.cache-hit != 'true'
       shell: bash
       run: |
         echo "Download required Python dependencies (pip)"
@@ -75,13 +78,12 @@ jobs:
         python3 -m pip freeze > requirements.txt
 
     - name: Save cache
-      if: steps.cache-pyvenv.outputs.cache-hit != 'true'
       id: cache-pypip-save
       uses: actions/cache/save@v3
       with:
         # path: ~/.local/share/virtualenvs
         path: ~/.cache/pip
-        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pip-${{ hashFiles('dev-requirements.txt') }}
+        key: ${{ steps.cache-pypip-restore.outputs.key }}
 
   build:
     name: Build the Browser Application
@@ -102,10 +104,17 @@ jobs:
       id: cache-pypip-restore
       uses: actions/cache/restore@v3
       with:
-        # path: ~/.local/share/virtualenvs
         path: ~/.cache/pip
         key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pip-${{ hashFiles('dev-requirements.txt') }}
 
+    # - name: Check cache hit
+    #   if: steps.cache-pypip.outputs.cache-hit != 'true'
+    #   run: exit 1
+
+    - name: Provision PyInstaller
+      if: steps.cache-pypip-restore.outputs.cache-hit != 'true'
+      shell: bash
+      run: "echo \"Installing PyInstaller (pip)\"\npython3 -m pip install --upgrade pip\npython3 -m pip install pyinstaller        \n#magic___^_^___line\n"
     - name: Build application
       shell: bash
       run: |
@@ -116,6 +125,5 @@ jobs:
       id: cache-pypip-save
       uses: actions/cache/save@v3
       with:
-        # path: ~/.local/share/virtualenvs
         path: ~/.cache/pip
-        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pip-${{ hashFiles('dev-requirements.txt') }}
+        key: ${{ steps.cache-pypip-restore.outputs.key }}
