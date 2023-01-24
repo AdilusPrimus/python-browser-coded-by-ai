@@ -79,7 +79,7 @@ jobs:
       uses: actions/cache/save@v3
       with:
         path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('pyvenv.cfg') }}
 
   build:
     name: Build the Browser Application
