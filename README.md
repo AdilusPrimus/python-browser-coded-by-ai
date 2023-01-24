@@ -151,7 +151,7 @@ echo 'export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"' >> ~/.zshrc
 ### Linux
 
 ``` bash
-sudo apt install -y qtcreator qtbase5-dev qt5-qmake cmake python3.10-venv pyqt5-dev-tools qttools5-dev-tools
+sudo apt install -y python3 qtcreator qtbase5-dev qt5-qmake cmake  pyqt5-dev-tools qttools5-dev-tools
 ```
 
 ### Windows
@@ -161,13 +161,13 @@ sudo apt install -y qtcreator qtbase5-dev qt5-qmake cmake python3.10-venv pyqt5-
 ### Github configuration
 
 The Github Action scripts where defined accordingly by leveraging the AI guiding and the Github ready to use templates:
-    - Software Composition Analysis (SCA) by dependabot 
+    - Software Composition Analysis (SCA) by dependabot
       - .github/dependabot.yml
       - .github/workflows/dependency-review.yml
     - Static Application Security Testing (SAST) including build and packaging with CodeQL for Python:
       - .github/workflows/codeql.yml
     - SAST with Bandit for Python:
-      - .github/workflows/bandit.yml 
+      - .github/workflows/bandit.yml
 
 ### vscode configuration
 
