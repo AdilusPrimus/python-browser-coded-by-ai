@@ -83,7 +83,7 @@ jobs:
       with:
         # path: ~/.local/share/virtualenvs
         path: ~/.cache/pip
-        key: ${{ steps.cache-pypip-restore.outputs.key }}
+        key: ${{ steps.cache-pypip.outputs.key }}
 
   build:
     name: Build the Browser Application
