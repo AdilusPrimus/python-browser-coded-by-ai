@@ -47,7 +47,9 @@ jobs:
       id: cache-pypip
       uses: actions/cache@v3
       with:
-        path: ~/.cache/pip
+        path: |
+          ~/.cache/pip
+          venv
         key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pip-${{ hashFiles('dev-requirements.txt') }}
 
     - name: Configure Ubuntu build container
@@ -57,13 +59,14 @@ jobs:
         sudo apt-get update
         sudo apt-get install qtcreator qtbase5-dev qt5-qmake pyqt5-dev-tools qttools5-dev-tools
 
-    # - name: Define Python virtual environment
-    #   shell: bash
-    #   run: |
-    #     echo "Define Python virtual environment"
-    #     python3 -m venv .venv
-    #     chmod u+x .venv/bin/activate
-    #     .venv/bin/activate
+    - name: Define Python virtual environment
+      if: steps.cache-pypip.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        echo "Define Python virtual environment"
+        python3 -m venv .venv
+        chmod u+x .venv/bin/activate
+        .venv/bin/activate
 
     - name: Manage Python dependencies
       if: steps.cache-pypip.outputs.cache-hit != 'true'
@@ -81,8 +84,9 @@ jobs:
       id: cache-pypip-save
       uses: actions/cache/save@v3
       with:
-        # path: ~/.local/share/virtualenvs
-        path: ~/.cache/pip
+        path: |
+          ~/.cache/pip
+          venv
         key: ${{ steps.cache-pypip.outputs.key }}
 
   build:
@@ -104,7 +108,9 @@ jobs:
       id: cache-pypip-restore
       uses: actions/cache/restore@v3
       with:
-        path: ~/.cache/pip
+        path: |
+          ~/.cache/pip
+          venv
         key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pip-${{ hashFiles('dev-requirements.txt') }}
 
     # - name: Check cache hit
@@ -114,16 +120,26 @@ jobs:
     - name: Provision PyInstaller
       if: steps.cache-pypip-restore.outputs.cache-hit != 'true'
       shell: bash
-      run: "echo \"Installing PyInstaller (pip)\"\npython3 -m pip install --upgrade pip\npython3 -m pip install pyinstaller        \n#magic___^_^___line\n"
+      run: |
+        echo "Installing PyInstaller (pip)"
+        python3 -m pip install --upgrade pip
+        python3 -m pip install pyinstaller
+
     - name: Build application
       shell: bash
       run: |
         echo "Package the application with pyinstaller"
+        if ! [ command \"pyinstaller\" ]; then
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pyinstaller
+        fi
         pyinstaller --log-level=DEBUG --clean browser.spec
 
     - name: Save cache
       id: cache-pypip-save
       uses: actions/cache/save@v3
       with:
-        path: ~/.cache/pip
+        path: |
+          ~/.cache/pip
+          venv
         key: ${{ steps.cache-pypip-restore.outputs.key }}
