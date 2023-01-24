@@ -54,17 +54,11 @@ jobs:
         # Details on CodeQL's query packs refer to : https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
         # queries: security-extended,security-and-quality
 
-
-    # Autobuild attempts to build any compiled languages  (C/C++, C#, Go, or Java).
-    # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
-
-    - name: ConfigureUbuntuBuildContainer
+    - name: Configure Ubuntu build container
       shell: bash
-      run: "sudo apt update # Installing Python components sudo apt install -y python3 python3-pip python3.10-venv # Installing QT5 components sudo apt install qtcreator qtbase5-dev qt5-qmake pyqt5-dev-tools qttools5-dev-tools\n#magic___^_^___line\n"
+      run: "sudo apt update; sudo apt install -y python3 python3-pip python3.10-venv qtcreator qtbase5-dev qt5-qmake pyqt5-dev-tools qttools5-dev-tools"
 
-    - name: DefinePythonVirtualEnvironment
+    - name: Define Python virtual environment
       shell: bash
       run: |
         echo "Define Python virtual environment""
@@ -72,7 +66,7 @@ jobs:
         chmod u+x .venv/bin/activate
         .venv/bin/activate
 
-    - name: ManagePythonDependencies
+    - name: Manage Python dependencies
       shell: bash
       run: |
         echo "Download required Python dependencies (pip)"
@@ -82,7 +76,7 @@ jobs:
         python3 -m pip install PyQt5 --config-settings --confirm-license= --verbose
         python3 -m pip install pyinstaller
 
-    - name: BuildBrowser
+    - name: Build application
       run: echo "Package the application with pyinstaller" pyinstaller --log-level=DEBUG --clean browser.spec
       shell: bash
 
